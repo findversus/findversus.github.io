@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mitgo-verification" content="7a91165e-b40c-4f19-81d4-bdf90a6292d0" />
+<title>FindVersus - Compare Prices</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffffff, #f2edff, #ffffff);
+  color: #28213d;
+}
+
+header {
+  background: white;
+  padding: 17px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 15px #6b42a511;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 800;
+  color: #7041c5;
+}
+
+.logo span {
+  color: #29213e;
+}
+
+nav a {
+  text-decoration: none;
+  color: #403653;
+  margin-left: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hero {
+  text-align: center;
+  padding: 55px 15px 35px;
+}
+
+.hero h1 {
+  font-size: clamp(28px, 5vw, 43px);
+  margin-bottom: 12px;
+  color: #302047;
+}
+
+.hero h1 span {
+  color: #7848d4;
+}
+
+.hero p {
+  color: #716980;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+.search-box {
+  max-width: 650px;
+  margin: auto;
+  display: flex;
+  background: white;
+  padding: 7px;
+  border-radius: 14px;
+  box-shadow: 0 5px 25px #7041c522;
+  border: 1px solid #e8ddff;
+}
+
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  padding: 14px;
+  font-size: 15px;
+  background: transparent;
+}
+
+.search-box button {
+  border: none;
+  border-radius: 10px;
+  background: #7546cf;
+  color: white;
+  padding: 0 23px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.section-title {
+  font-size: 22px;
+  margin-bottom: 18px;
+  color: #302047;
+}
+
+.platform-section,
+.category-section,
+.trending-section {
+  background: white;
+  border-radius: 18px;
+  padding: 23px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 22px #7041c50c;
+}
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.platform-card {
+  min-height: 112px;
+  border: 1px solid #eee8f8;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 9px;
+  text-decoration: none;
+  background: #fff;
+  transition: .2s;
+}
+
+.platform-card:hover {
+  border-color: #9569e2;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px #7041c51c;
+}
+
+.platform-logo {
+  width: 58px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.platform-logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+.platform-card span {
+  color: #302047;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+}
+
+.category-card {
+  text-decoration: none;
+  color: #302047;
+  border: 1px solid #eee9f7;
+  border-radius: 13px;
+  overflow: hidden;
+  background: white;
+  transition: .2s;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px #7041c51c;
+}
+
+.category-card img {
+  width: 100%;
+  height: 115px;
+  object-fit: cover;
+  display: block;
+}
+
+.category-card p {
+  text-align: center;
+  padding: 12px 5px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.trending-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.trending-card {
+  border: 1px solid #eee9f7;
+  border-radius: 13px;
+  overflow: hidden;
+  background: white;
+}
+
+.trending-card img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+}
+
+.trending-card p {
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.info {
+  background: #f5f0ff;
+  color: #6545a0;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 18px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 10px;
+  color: #756b84;
+  font-size: 13px;
+}
+
+@media(max-width:700px) {
+  header { padding: 15px 4%; }
+  nav a { margin-left: 9px; font-size: 12px; }
+  .container { width: 94%; }
+  .category-grid { grid-template-columns: repeat(3, 1fr); }
+  .trending-grid { grid-template-columns: repeat(2, 1fr); }
+  .platform-grid { grid-template-columns: repeat(3, 1fr); }
+  .category-card img { height: 95px; }
+}
+
+@media(max-width:380px) {
+  .platform-grid { grid-template-columns: repeat(2, 1fr); }
+  nav a { margin-left: 5px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Find<span>Versus</span></div>
+  <nav>
+    <a href="#platforms">Stores</a>
+    <a href="#categories">Categories</a>
+    <a href="#trending">Trending</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Compare Prices. <span>Save More.</span></h1>
+  <p>Find products, compare stores and discover better deals.</p>
+
+  <div class="search-box">
+    <input id="productSearch" type="text"
+      placeholder="Enter product name...">
+    <button onclick="searchProduct()">Search</button>
+  </div>
+  <p style="margin-top:12px;font-size:12px;color:#81778f">Search across supported stores from one place.</p>
+</section>
+
+<main class="container">
+
+<section class="platform-section" id="platforms">
+  <h2 class="section-title">Shopping Platforms</h2>
+
+  <div class="platform-grid">
+
+    <!-- Amazon -->
+    <a class="platform-card" href="https://www.amazon.in/" target="_blank">
+      <div class="platform-logo">
+        <svg viewBox="0 0 100 65" xmlns="http://www.w3.org/2000/svg">
+          <text x="4" y="36" font-size="31" font-weight="bold"
+            fill="#222">amazon</text>
+          <path d="M15 47 Q48 67 84 44" fill="none"
+            stroke="#FF9900" stroke-width="5" stroke-linecap="round"/>
+          <path d="M76 39 L86 43 L78 51" fill="none"
+            stroke="#FF9900" stroke-width="4"/>
+        </svg>
+      </div>
+      <span>Amazon</span>
+    </a>
+
+    <!-- Flipkart -->
+    <a class="platform-card" href="https://www.flipkart.com/" target="_blank">
+      <div class="platform-logo">
+        <svg viewBox="0 0 65 65" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 21 H52 L57 57 H8 Z" fill="#2874F0" rx="5"/>
+          <path d="M23 21 Q23 8 33 8 Q43 8 43 21"
+            fill="none" stroke="#2874F0" stroke-width="5"/>
+          <text x="32" y="46" text-anchor="middle"
+            font-size="24" font-weight="bold" fill="white">F</text>
+        </svg>
+      </div>
+      <span>Flipkart</span>
+    </a>
+
+    <!-- Myntra -->
+    <a class="platform-card" href="https://www.myntra.com/" target="_blank">
+      <div class="platform-logo">
+        <svg viewBox="0 0 65 65" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 53 L20 11 L32 42 L45 11 L57 53"
+            fill="none" stroke="#FF3F6C" stroke-width="9"
+            stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span>Myntra</span>
+    </a>
+
+    <!-- Meesho -->
+    <a class="platform-card" href="https://www.meesho.com/" target="_blank">
+      <div class="platform-logo">
+        <svg viewBox="0 0 65 65" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="29" fill="#FCEAF7"/>
+          <text x="32" y="44" text-anchor="middle"
+            font-size="38" font-weight="bold" fill="#9F2089">M</text>
+        </svg>
+      </div>
+      <span>Meesho</span>
+    </a>
+
+    <!-- AJIO -->
+    <a class="platform-card" href="https://www.ajio.com/" target="_blank">
+      <div class="platform-logo">
+        <svg viewBox="0 0 100 65" xmlns="http://www.w3.org/2000/svg">
+          <text x="50" y="44" text-anchor="middle"
+            font-size="37" font-weight="bold" letter-spacing="2"
+            fill="#222">AJIO</text>
+        </svg>
+      </div>
+      <span>AJIO</span>
+    </a>
+
+    <!-- Croma -->
+    <a class="platform-card" href="https://www.croma.com/" target="_blank">
+      <div class="platform-logo">
+        <svg viewBox="0 0 65 65" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="27" fill="#00AEEF"/>
+          <path d="M44 20 Q19 9 16 32 Q18 55 44 44"
+            fill="none" stroke="white" stroke-width="8"
+            stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span>Croma</span>
+    </a>
+
+    <!-- Tata CliQ -->
+    <a class="platform-card" href="https://www.tatacliq.com/" target="_blank">
+      <div class="platform-logo">
+        <svg viewBox="0 0 100 65" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="32" r="29" fill="#4B347D"/>
+          <text x="50" y="45" text-anchor="middle"
+            font-size="39" font-weight="bold" fill="white">T</text>
+        </svg>
+      </div>
+      <span>Tata CLiQ</span>
+    </a>
+
+    <!-- Reliance Digital -->
+    <a class="platform-card" href="https://www.reliancedigital.in/" target="_blank">
+      <div class="platform-logo">
+        <svg viewBox="0 0 100 65" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="32" r="28" fill="#0755A4"/>
+          <path d="M35 18 H54 Q69 18 69 31 Q69 43 55 43 H35 Z"
+            fill="none" stroke="white" stroke-width="6"/>
+          <path d="M48 43 L67 54" stroke="white" stroke-width="6"/>
+        </svg>
+      </div>
+      <span>Reliance Digital</span>
+    </a>
+
+  </div>
+</section>
+
+<section class="category-section" id="categories">
+  <h2 class="section-title">Explore Categories</h2>
+
+  <div class="category-grid" id="categoryGrid"></div>
+</section>
+
+<section class="trending-section" id="trending">
+  <h2 class="section-title">Trending Products</h2>
+
+  <div class="trending-grid">
+    <div class="trending-card">
+      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=350&fit=crop" alt="Smartphone">
+      <p>Smartphones</p>
+    </div>
+
+    <div class="trending-card">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=350&fit=crop" alt="Headphones">
+      <p>Headphones</p>
+    </div>
+
+    <div class="trending-card">
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=350&fit=crop" alt="Watch">
+      <p>Smart Watches</p>
+    </div>
+
+    <div class="trending-card">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=350&fit=crop" alt="Shoes">
+      <p>Sports Shoes</p>
+    </div>
+  </div>
+
+  <div class="info">
+    <strong>Price comparison:</strong>
+    Live prices are not connected yet. Connect authorised store APIs
+    or affiliate product feeds to display verified prices and highlight
+    the lowest offer.
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © 2026 FindVersus. Compare Smart. Shop Better.
+</footer>
+
+<script>
+const categories = [
+  ["Fashion","photo-1483985988355-763728e1935b"],
+  ["Mobiles","photo-1511707171634-5f897ff02aa9"],
+  ["Electronics","photo-1498049794561-7780e7231661"],
+  ["Computers","photo-1496181133206-80ce9b88a853"],
+  ["Beauty","photo-1596462502278-27bfdc403348"],
+  ["Home & Kitchen","photo-1600210492486-724fe5c67fb0"],
+  ["Footwear","photo-1542291026-7eec264c27ff"],
+  ["Grocery","photo-1542838132-92c53300491e"],
+  ["Sports","photo-1579952363873-27f3bade9f55"],
+  ["Watches","photo-1523275335684-37898b6baf30"],
+  ["Gaming","photo-1593305841991-05c297ba4575"],
+  ["Cameras","photo-1516035069371-29a1b244cc32"],
+  ["Books","photo-1544947950-fa07a98d237f"],
+  ["Toys & Baby","photo-1596461404969-9ae70f2830c1"],
+  ["Automotive","photo-1492144534655-ae79c964c9d7"]
+];
+
+const categoryGrid = document.getElementById("categoryGrid");
+
+categories.forEach(item => {
+  const card = document.createElement("a");
+  card.className = "category-card";
+  card.href = "#";
+  card.innerHTML = `
+    <img src="https://images.unsplash.com/${item[1]}?w=500&h=350&fit=crop"
+         alt="${item[0]}" loading="lazy">
+    <p>${item[0]}</p>
+  `;
+  card.addEventListener("click", function(e) {
+    e.preventDefault();
+    document.getElementById("productSearch").value = item[0];
+    searchProduct();
+  });
+  categoryGrid.appendChild(card);
+});
+
+function searchProduct() {
+  const query = document.getElementById("productSearch").value.trim();
+
+  if (!query) {
+    alert("Please enter a product name.");
+    return;
+  }
+
+  const encoded = encodeURIComponent(query);
+
+  const stores = [
+    ["Amazon", "https://www.amazon.in/s?k=" + encoded],
+    ["Flipkart", "https://www.flipkart.com/search?q=" + encoded],
+    ["Myntra", "https://www.myntra.com/" + encoded],
+    ["Meesho", "https://www.meesho.com/search?q=" + encoded],
+    ["AJIO", "https://www.ajio.com/search/?text=" + encoded],
+    ["Croma", "https://www.croma.com/searchB?q=" + encoded],
+    ["Tata CLiQ", "https://www.tatacliq.com/search/?searchCategory=all&text=" + encoded],
+    ["Reliance Digital", "https://www.reliancedigital.in/search?q=" + encoded]
+  ];
+
+  const resultWindow = window.open("", "_blank");
+
+  if (!resultWindow) {
+    alert("Please allow pop-ups for FindVersus.");
+    return;
+  }
+
+  const safeQuery = query.replace(/[&<>"']/g, "");
+
+  resultWindow.document.write(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>FindVersus | ${safeQuery}</title>
+      <style>
+        * { box-sizing: border-box; }
+        body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          background: linear-gradient(135deg, #fff, #f3edff);
+          color: #302047;
+          padding: 28px 16px 42px;
+        }
+        .wrap { max-width: 900px; margin: 0 auto; }
+        .brand { color: #7546cf; font-size: 14px; font-weight: 800; letter-spacing: .5px; }
+        h1 { font-size: clamp(25px, 5vw, 34px); margin: 14px 0 8px; }
+        .sub { color: #716980; line-height: 1.6; margin: 0 0 24px; }
+        .results { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+        .store {
+          display: flex; align-items: center; justify-content: space-between; gap: 12px;
+          background: #fff; border: 1px solid #e9e0f7; border-radius: 15px;
+          padding: 18px; text-decoration: none; color: #302047;
+          box-shadow: 0 5px 18px #7041c50c; transition: .2s;
+        }
+        .store:hover { transform: translateY(-2px); border-color: #9569e2; box-shadow: 0 8px 22px #7041c51a; }
+        .store strong { display: block; font-size: 16px; margin-bottom: 5px; }
+        .store small { color: #81778f; font-size: 12px; }
+        .arrow { color: #7546cf; font-size: 22px; font-weight: 700; }
+        .notice { margin-top: 22px; padding: 15px; border-radius: 12px; background: #f0e9ff; color: #6545a0; font-size: 13px; line-height: 1.6; }
+        .back { display: inline-block; margin-top: 20px; color: #7041c5; font-weight: 700; text-decoration: none; }
+      </style>
+    </head>
+    <body>
+      <main class="wrap">
+        <div class="brand">FINDVERSUS</div>
+        <h1>Search results</h1>
+        <p class="sub">You searched for <strong>${safeQuery}</strong>. Choose a store below to view matching products.</p>
+        <section class="results">
+          ${stores.map(store =>
+            `<a class="store" href="${store[1]}" target="_blank" rel="noopener noreferrer"><span><strong>${store[0]}</strong><small>Open product search</small></span><span class="arrow">&#8599;</span></a>`
+          ).join("")}
+        </section>
+        <div class="notice"><strong>Price comparison is not live yet.</strong><br>FindVersus currently opens each store's search page. Verified prices and product details will appear here only after an authorised product API or affiliate feed is connected.</div>
+        <a class="back" href="${window.location.href}">← Back to FindVersus</a>
+      </main>
+    </body>
+    </html>
+  `);
+
+  resultWindow.document.close();
+}
+</script>
+
+</body>
+</html>
